@@ -50,7 +50,7 @@ export default createStore({
     async fetchRunners({ commit }) {
       commit('setLoading', true)
       try {
-        const response = await axios.get('http://localhost:8080/api/runners')
+        const response = await axios.get('http://localhost:9000/api/runners')
         commit('setRunners', response.data)
       } catch (error) {
         commit('setError', error.message)
@@ -61,7 +61,7 @@ export default createStore({
     async fetchResults({ commit }) {
       commit('setLoading', true)
       try {
-        const response = await axios.get('http://localhost:8080/api/results')
+        const response = await axios.get('http://localhost:9000/api/results')
         commit('setResults', response.data)
       } catch (error) {
         commit('setError', error.message)
@@ -71,7 +71,7 @@ export default createStore({
     },
     async fetchSeasons({ commit }) {
       try {
-        const response = await axios.get('http://localhost:8080/api/seasons')
+        const response = await axios.get('http://localhost:9000/api/seasons')
         commit('setSeasons', response.data)
       } catch (error) {
         commit('setError', error.message)
@@ -79,7 +79,7 @@ export default createStore({
     },
     async fetchRaces({ commit }) {
       try {
-        const response = await axios.get('http://localhost:8080/api/races')
+        const response = await axios.get('http://localhost:9000/api/races')
         commit('setRaces', response.data)
       } catch (error) {
         commit('setError', error.message)
@@ -87,7 +87,7 @@ export default createStore({
     },
     async fetchRunnerById({ commit }, id) {
       try {
-        const response = await axios.get(`http://localhost:8080/api/runners/${id}`)
+        const response = await axios.get(`http://localhost:9000/api/runners/${id}`)
         commit('setSelectedRunner', response.data)
       } catch (error) {
         commit('setError', error.message)
@@ -95,7 +95,7 @@ export default createStore({
     },
     async fetchRunnerResults({ commit }, id) {
       try {
-        const response = await axios.get(`http://localhost:8080/api/results?runnerId=${id}`)
+        const response = await axios.get(`http://localhost:9000/api/results?runnerId=${id}`)
         commit('setRunnerResults', response.data)
       } catch (error) {
         commit('setError', error.message)
@@ -103,7 +103,7 @@ export default createStore({
     },
     async fetchRaceById({ commit }, id) {
       try {
-        const response = await axios.get(`http://localhost:8080/api/races/${id}`)
+        const response = await axios.get(`http://localhost:9000/api/races/${id}`)
         commit('setSelectedRace', response.data)
       } catch (error) {
         commit('setError', error.message)
@@ -111,7 +111,7 @@ export default createStore({
     },
     async fetchRaceResults({ commit }, id) {
       try {
-        const response = await axios.get(`http://localhost:8080/api/results?raceId=${id}`)
+        const response = await axios.get(`http://localhost:9000/api/results?raceId=${id}`)
         commit('setRaceResults', response.data)
       } catch (error) {
         commit('setError', error.message)
