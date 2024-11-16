@@ -1,6 +1,12 @@
 <template>
   <div class="result-list">
-    <h1>Results - {{ selectedSeasonName }} - {{ selectedRaceName }}</h1>
+    <h1>
+      Results - {{ selectedSeasonName }} - 
+      <router-link 
+        :to="{ name: 'RaceDetail', params: { id: selectedRaceId }}"
+        class="race-link"
+      >{{ selectedRaceName }}</router-link>
+    </h1>
     <div class="filters">
       <input 
         v-model="filters.runnerSearch" 
@@ -30,6 +36,8 @@
         :results="filteredResults"
         :sort-key="sortKey"
         :sort-order="sortOrder"
+        :show-race-name="false"
+        :show-season-name="false"
         @sort="handleSort"
       />
     </div>
@@ -96,6 +104,12 @@ export default {
       const races = store.getters.getRaces || []
       const race = races.find(r => r.id === filters.value.raceId)
       return race ? race.name : ''
+    })
+    
+    const selectedRaceId = computed(() => {
+      const races = store.getters.getRaces || []
+      const race = races.find(r => r.id === filters.value.raceId)
+      return race ? race.id : 0
     })
 
     const filteredResults = computed(() => {
@@ -169,6 +183,7 @@ export default {
       filteredRaces,
       selectedSeasonName,
       selectedRaceName,
+      selectedRaceId,
       seasons: computed(() => store.getters.getSeasons || []),
       error: computed(() => store.getters.getError),
       loading: computed(() => store.getters.isLoading),
@@ -204,5 +219,14 @@ export default {
 .loading {
   text-align: center;
   padding: 20px;
+}
+
+.race-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.race-link:hover {
+  color: #42b983;
 }
 </style> 
