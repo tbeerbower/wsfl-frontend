@@ -1,6 +1,7 @@
 <template>
   <div class="login-view">
-    <h1>Welcome to Fantasy Running League</h1>
+    <img src="@/assets/wsfl-logo.webp" alt="WSFL Logo" class="wsfl-logo">
+    <h1>Welcome to the WSFL</h1>
     <button @click="handleGoogleLogin" class="google-login-btn">
       <img src="@/assets/google-icon.png" alt="Google" class="google-icon">
       Sign in with Google
@@ -61,6 +62,15 @@ export default {
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
+  background-color: #2d3436;
+  color: #dfe6e9;
+}
+
+h1 {
+  color: #dfe6e9;
+  font-weight: 600;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
 }
 
 .google-login-btn {
@@ -68,19 +78,38 @@ export default {
   align-items: center;
   gap: 10px;
   padding: 12px 24px;
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 4px;
-  background: white;
+  background: #636e72;
+  color: #dfe6e9;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.2s ease;
 }
 
 .google-login-btn:hover {
-  background: #f5f5f5;
+  background-color: #74b9ff;
 }
 
 .google-icon {
   width: 20px;
   height: 20px;
+}
+
+.wsfl-logo {
+  width: 200px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 8px rgba(116, 185, 255, 0.3));
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  
+  .wsfl-logo {
+    width: 150px;
+  }
 }
 </style> 
