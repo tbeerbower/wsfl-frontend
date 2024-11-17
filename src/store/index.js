@@ -107,7 +107,7 @@ const store = createStore({
     },
     async fetchRaceResults({ commit }, id) {
       try {
-        const response = await api.get(`/races/${id}/results`)
+        const response = await api.get(`/results?raceId=${id}`)
         commit('setRaceResults', response.data)
       } catch (error) {
         console.error('Error fetching race results:', error)

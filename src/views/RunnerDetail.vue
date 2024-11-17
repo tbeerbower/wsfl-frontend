@@ -38,8 +38,8 @@ export default {
   setup() {
     const store = useStore()
     const route = useRoute()
-    const sortKey = ref('raceName')
-    const sortOrder = ref('asc')
+    const sortKey = ref('seasonName')
+    const sortOrder = ref('desc')
 
     onMounted(async () => {
       const runnerId = route.params.id
