@@ -1,7 +1,8 @@
 import { createStore } from 'vuex'
-import axios from 'axios'
+import auth from './modules/auth'
+import api from '@/services/api'
 
-export default createStore({
+const store = createStore({
   state: {
     runners: [],
     loading: false,
@@ -17,12 +18,6 @@ export default createStore({
   mutations: {
     setRunners(state, runners) {
       state.runners = runners
-    },
-    setLoading(state, loading) {
-      state.loading = loading
-    },
-    setError(state, error) {
-      state.error = error
     },
     setResults(state, results) {
       state.results = results
@@ -48,80 +43,80 @@ export default createStore({
   },
   actions: {
     async fetchRunners({ commit }) {
-      commit('setLoading', true)
       try {
-        const response = await axios.get('http://localhost:9000/api/runners')
+        const response = await api.get('/runners')
         commit('setRunners', response.data)
       } catch (error) {
-        commit('setError', error.message)
-      } finally {
-        commit('setLoading', false)
+        console.error('Error fetching runners:', error)
+        throw error
       }
     },
     async fetchResults({ commit }) {
-      commit('setLoading', true)
       try {
-        const response = await axios.get('http://localhost:9000/api/results')
+        const response = await api.get('/results')
         commit('setResults', response.data)
       } catch (error) {
-        commit('setError', error.message)
-      } finally {
-        commit('setLoading', false)
+        console.error('Error fetching results:', error)
+        throw error
       }
     },
     async fetchSeasons({ commit }) {
       try {
-        const response = await axios.get('http://localhost:9000/api/seasons')
+        const response = await api.get('/seasons')
         commit('setSeasons', response.data)
       } catch (error) {
-        commit('setError', error.message)
+        console.error('Error fetching seasons:', error)
+        throw error
       }
     },
     async fetchRaces({ commit }) {
       try {
-        const response = await axios.get('http://localhost:9000/api/races')
+        const response = await api.get('/races')
         commit('setRaces', response.data)
       } catch (error) {
-        commit('setError', error.message)
+        console.error('Error fetching races:', error)
+        throw error
       }
     },
     async fetchRunnerById({ commit }, id) {
       try {
-        const response = await axios.get(`http://localhost:9000/api/runners/${id}`)
+        const response = await api.get(`/runners/${id}`)
         commit('setSelectedRunner', response.data)
       } catch (error) {
-        commit('setError', error.message)
+        console.error('Error fetching runner:', error)
+        throw error
       }
     },
     async fetchRunnerResults({ commit }, id) {
       try {
-        const response = await axios.get(`http://localhost:9000/api/results?runnerId=${id}`)
+        const response = await api.get(`/results?runnerId=${id}`)
         commit('setRunnerResults', response.data)
       } catch (error) {
-        commit('setError', error.message)
+        console.error('Error fetching runner results:', error)
+        throw error
       }
     },
     async fetchRaceById({ commit }, id) {
       try {
-        const response = await axios.get(`http://localhost:9000/api/races/${id}`)
+        const response = await api.get(`/races/${id}`)
         commit('setSelectedRace', response.data)
       } catch (error) {
-        commit('setError', error.message)
+        console.error('Error fetching race:', error)
+        throw error
       }
     },
     async fetchRaceResults({ commit }, id) {
       try {
-        const response = await axios.get(`http://localhost:9000/api/results?raceId=${id}`)
+        const response = await api.get(`/races/${id}/results`)
         commit('setRaceResults', response.data)
       } catch (error) {
-        commit('setError', error.message)
+        console.error('Error fetching race results:', error)
+        throw error
       }
     }
   },
   getters: {
     getRunners: state => state.runners,
-    isLoading: state => state.loading,
-    getError: state => state.error,
     getResults: state => state.results,
     getSeasons: state => state.seasons,
     getRaces: state => state.races,
@@ -129,5 +124,10 @@ export default createStore({
     getRunnerResults: state => state.runnerResults,
     getSelectedRace: state => state.selectedRace,
     getRaceResults: state => state.raceResults
+  },
+  modules: {
+    auth
   }
-}) 
+})
+
+export default store 

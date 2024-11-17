@@ -1,7 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '../store'
 import RunnerList from '../views/RunnerList.vue'
 
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/LoginView.vue')
+  },
   {
     path: '/',
     redirect: '/runners'
@@ -31,6 +37,22 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = store.getters['auth/isAuthenticated']
+  console.log('Router guard - Path:', to.path, 'Authenticated:', isAuthenticated)
+  
+  if (to.path !== '/login' && !isAuthenticated) {
+    console.log('Not authenticated, redirecting to login')
+    next('/login')
+  } else if (to.path === '/login' && isAuthenticated) {
+    console.log('Already authenticated, redirecting to home')
+    next('/')
+  } else {
+    console.log('Proceeding to:', to.path)
+    next()
+  }
 })
 
 export default router 

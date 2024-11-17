@@ -38,7 +38,7 @@ export default {
   setup() {
     const store = useStore()
     const route = useRoute()
-    const sortKey = ref('seasonName')
+    const sortKey = ref('raceName')
     const sortOrder = ref('asc')
 
     onMounted(async () => {
