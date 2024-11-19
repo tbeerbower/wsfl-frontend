@@ -43,8 +43,7 @@ export default {
         console.log('Backend response:', response.data)
         
         commit('setToken', response.data.jwt)
-        const payload = JSON.parse(atob(response.data.jwt.split('.')[1]))
-        commit('setUser', payload)
+        commit('setUser', response.data.user)
         return response
       } catch (error) {
         console.error('Login failed in auth module:', error)

@@ -6,6 +6,10 @@
       <img src="@/assets/google-icon.png" alt="Google" class="google-icon">
       Sign in with Google
     </button>
+    <div class="register-link">
+      Don't have an account? 
+      <router-link to="/register">Sign up</router-link>
+    </div>
   </div>
 </template>
 
@@ -100,6 +104,20 @@ h1 {
   width: 200px;
   margin-bottom: 20px;
   filter: drop-shadow(0 0 8px rgba(116, 185, 255, 0.3));
+}
+
+.register-link {
+  margin-top: 2rem;
+  color: #b2bec3;
+}
+
+.register-link a {
+  color: #74b9ff;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
