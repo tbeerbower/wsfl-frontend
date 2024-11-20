@@ -53,6 +53,23 @@ export default {
         throw error
       }
     },
+    async loginWithEmail({ commit }, credentials) {
+      try {
+        console.log('Processing email login...')
+        const response = await api.post('/login', credentials)
+        console.log('Backend response:', response.data)
+        
+        commit('setToken', response.data.jwt)
+        commit('setUser', response.data.user)
+        return response
+      } catch (error) {
+        console.error('Login failed in auth module:', error)
+        if (error.response) {
+          console.error('Backend error response:', error.response.data)
+        }
+        throw error
+      }
+    },
     logout({ commit }) {
       commit('setUser', null)
       commit('setToken', null)

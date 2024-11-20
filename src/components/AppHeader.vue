@@ -2,7 +2,7 @@
   <header class="app-header">
     <nav>
       <router-link to="/" class="brand">
-        <img src="@/assets/wsfl-logo.webp" alt="WSFL Logo" class="logo">
+        <img src="@/assets/wsfl-header-logo-2.jpg" alt="WSFL Logo" class="logo">
         <span>Fantasy Running League</span>
       </router-link>
       <div class="nav-links">
@@ -10,7 +10,11 @@
         <router-link to="/results">Results</router-link>
       </div>
       <div class="user-info" v-if="currentUser">
-        <img :src="currentUser.picture" :alt="currentUser.name" class="user-avatar">
+        <img 
+          :src="currentUser.picture || require('@/assets/anonymous-user.webp')" 
+          :alt="currentUser.name" 
+          class="user-avatar"
+        >
         <span class="user-name">{{ currentUser.name }}</span>
         <button @click="handleLogout" class="logout-btn">Logout</button>
       </div>
@@ -68,7 +72,7 @@ nav {
 }
 
 .logo {
-  height: 40px;
+  height: 80px;
   width: auto;
 }
 
