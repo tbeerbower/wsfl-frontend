@@ -73,6 +73,33 @@ export default {
     logout({ commit }) {
       commit('setUser', null)
       commit('setToken', null)
+    },
+    async updateProfile({ commit, state }, profileData) {
+      try {
+        const updatedUser = {
+          ...profileData
+        }
+        const response = await api.patch(`/users/${state.user.id}`, updatedUser)
+        commit('setUser', response.data)
+        return response
+      } catch (error) {
+        console.error('Profile update failed:', error)
+        throw error
+      }
+    },
+    async updateProfilePicture({ commit }, formData) {
+      try {
+        const response = await api.put('/users/profile/picture', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        commit('setUser', response.data)
+        return response
+      } catch (error) {
+        console.error('Profile picture update failed:', error)
+        throw error
+      }
     }
   },
   getters: {
